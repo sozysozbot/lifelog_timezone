@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>hsjoihs-lifelog のタイムゾーン変換</title>
+	<script>
+		function offset(time, diff) {
+			const [hour, minute] = time.split(/[:;]/); // セミコロン打っちゃうことあるからね
+			return `${(parseInt(hour, 10) + diff + 24) % 24}:${minute}`; // 30分ズレのタイムゾーンとかは考えない
+		}
+		function foo() {
+			document.getElementById("b").value = document.getElementById("a").value.split("\n").map(line => {
+				const [time, ...rest] = line.split("\u3000");
+				const [begin, end] = time.split("～");
+				return `JST ${offset(begin, 0)}～${offset(end, 0)} / PDT ${offset(begin, -16)}～${offset(end, -16)}\u3000${rest.join("\u3000")}`
+			}).join("\n");
+		}
+	</script>
+</head>
+<textarea onchange="foo()" id="a" rows="10" cols="100"></textarea><br>
+<textarea readonly id="b" rows="10" cols="100"></textarea>
+
+</html>
