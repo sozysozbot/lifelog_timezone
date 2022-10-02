@@ -6,13 +6,13 @@
 	<title>hsjoihs-lifelog のタイムゾーン変換</title>
 	<script>
 		function offset(time, diff) {
-			const [hour, minute] = time.split(/[:;]/); // セミコロン打っちゃうことあるからね
+			const [hour, minute] = time.split(/[:;\]']/); // セミコロンとか角括弧とか（非日本語キーボードで）アポストロフィとか打っちゃうことあるからね
 			return `${(parseInt(hour, 10) + diff + 24) % 24}:${minute}`; // 30分ズレのタイムゾーンとかは考えない
 		}
 		function foo() {
 			document.getElementById("b").value = document.getElementById("a").value.split("\n").map(line => {
 				const [time, ...rest] = line.split("\u3000");
-				const [begin, end] = time.split("～");
+				const [begin, end] = time.split(/[～〜]/);
 				return `JST ${offset(begin, 0)}～${offset(end, 0)} / PDT ${offset(begin, -16)}～${offset(end, -16)}\u3000${rest.join("\u3000")}`
 			}).join("\n");
 		}
