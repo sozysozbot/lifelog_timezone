@@ -13,7 +13,7 @@
 			document.getElementById("b").value = document.getElementById("a").value.split("\n").map(line => {
 				const [time, ...rest] = line.split("\u3000");
 				const [begin, end] = time.split(/[～〜]/);
-				return `JST ${offset(begin, 0)}～${offset(end, 0)} / PDT ${offset(begin, -16)}～${offset(end, -16)}\u3000${rest.join("\u3000")}`
+				return `JST ${offset(begin, 0)}～${offset(end, 0)} / PST ${offset(begin, -17)}～${offset(end, -17)}\u3000${rest.join("\u3000")}`
 			}).join("\n");
 		}
 	</script>
